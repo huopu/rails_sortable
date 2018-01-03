@@ -6,7 +6,7 @@ class SortableController < ApplicationController
     klass, ids, sort_attribute = parse_params
     klass.set_sortable sort_attribute, klass.sortable_options
     attr = klass.sort_attribute
-    models = klass.order(attr).to_a
+    models = klass.where(id: ids).order(attr).to_a
     ids.each_with_index do |id, new_sort|
       model = models.find {|m| m.id == id }
       model.update_sort!(new_sort) if model.read_attribute(attr) != new_sort

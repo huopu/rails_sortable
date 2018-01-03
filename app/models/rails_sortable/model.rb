@@ -21,11 +21,11 @@ module RailsSortable
       write_attribute sort_attribute, new_value
       if self.class.sortable_options[:silence_recording_timestamps]
         warn "[DEPRECATION] `silence_recording_timestamps` is deprecated. Please use `without_updating_timestamps` instead."
-        without_updating_timestamps { save! }
+        without_updating_timestamps { save! validate: false }
       elsif self.class.sortable_options[:without_updating_timestamps]
-        without_updating_timestamps { save! }
+        without_updating_timestamps { save! validate: false }
       else
-        save!
+        save! validate: false
       end
     end
 
